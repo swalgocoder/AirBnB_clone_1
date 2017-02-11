@@ -3,9 +3,6 @@
 import datetime
 import uuid
 import copy
-"""
-from . import storage
-"""
 import models
 
 class BaseModel:
@@ -19,6 +16,8 @@ class BaseModel:
                 return;
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
+        
         models.storage.new(self)
 
     def __str__(self):
@@ -26,11 +25,12 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_json(self):
-        self.updated_at = datetime.datetime.isoformat(self.updated_at)
-        self.created_at = datetime.datetime.isoformat(self.created_at)
         new_dict = copy.copy(self.__dict__)
         new_dict['__class__'] = self.__class__.__name__
+        new_dict['created_at'] = str(self.updated_at)
+        new_dict['updated_at'] = str(self.created_at)
         return new_dict
