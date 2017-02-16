@@ -30,7 +30,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertFalse(hasattr(self.test2, "id"))
 
     """
-    Test save method.
+    Test save method, encoding python dictionary into JSON-encoded string.
     """
     def test_save(self):
         mock_val = {"id": {"__class__": "BaseModel"}}
@@ -38,7 +38,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(type(expected_val) is str)
 
     """
-    Test reload method.
+    Test reload method, decoding JSON-encoded string back into a python dictionary structure 
     """
     def test_reload(self):
         mock_val = '{"id": {"__class__": "BaseModel"}}'
