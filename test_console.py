@@ -53,6 +53,14 @@ class TestConsole(unittest.TestCase):
         cli = self.create()
         self.assertTrue(cli.onecmd("EOF"))
 
+    def test_create_object(self):
+        """test method for create_method"""
+        cli = self.create()
+        my_input = 'Review'
+        with patch('sys.stdout', new=StringIO()) as fakeOutput:
+            self.assertFalse(cli.onecmd(my_input))
+        self.assertEqual('Review', 'Review')
+        
 
     def test_destroy_object(self):
         """test method for do_destroy"""
