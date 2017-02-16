@@ -84,7 +84,8 @@ class TestConsole(unittest.TestCase):
         bad_input = 'update BaseModel This-is-testing-98'
         with patch('sys.stdout', new=StringIO()) as fakeOutput:
             self.assertFalse(cli.onecmd(bad_input))
-        self.assertEqual('** value missing **', '** value missing **')
+        self.assertEqual('** no instance found **', '** no instance found **')
+
 
     def test_all(self):
         """
@@ -94,8 +95,8 @@ class TestConsole(unittest.TestCase):
         cli = self.create()
         with patch('sys.stdout', new=StringIO()) as fakeOutput:
             self.assertFalse(cli.onecmd('classname.all()'))
-        self.assertEqual("** class doesn't exist **",
-                         "** class doesn't exist **")
+        self.assertEqual('*** Unknown syntax: classname.all()',
+                         '*** Unknown syntax: classname.all()')
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestConsole)
 unittest.TextTestRunner(verbosity = 2).run(suite)
