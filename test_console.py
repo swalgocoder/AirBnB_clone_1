@@ -20,11 +20,6 @@ class TestConsole(unittest.TestCase):
     """
     Create automated tests for interactive shell based on cmd module
     """
-    no_instance = "** no instance found **\n"
-    no_class = "** class doesn't exist **\n"
-    missing_class = "** class name missing **\n"
-    missing_id = "** instance id missing **\n"
-    
     def setUp(self):
         """setup method for Console Test Class"""
         self.mock_stdin = unittest.mock.create_autospec(sys.stdin)
@@ -42,6 +37,9 @@ class TestConsole(unittest.TestCase):
 
     def test_help(self):
         """help command"""
+        cli = self.create()
+        self.assertFalse(cli.onecmd("help"))
+
 
     def test_exit(self):
         """exit command"""
@@ -55,6 +53,7 @@ class TestConsole(unittest.TestCase):
 
     def test_create_object(self):
         """test method for create_method"""
+        """patch replaces std.out with StringIO("file as object")"""
         cli = self.create()
         my_input = 'Review'
         with patch('sys.stdout', new=StringIO()) as fakeOutput:
