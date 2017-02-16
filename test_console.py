@@ -86,6 +86,16 @@ class TestConsole(unittest.TestCase):
         self.assertEqual('** no instance found **', '** no instance found **')
 
 
+
+    def test_help(self):
+        """test method for help output"""
+        cli = self.create()
+        expected = "EOF  all  create  destroy  help  quit  show  update\n\n"
+        with patch('sys.stdout', new=StringIO()) as fakeOutput:
+            self.assertFalse(cli.onecmd("help"))
+        self.assertEqual(expected, expected)
+        
+
     def test_all(self):
         """
         test do_all
